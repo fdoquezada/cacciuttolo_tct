@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block favicon %}
+    <link rel="icon" href="{% static 'img/truck.svg' %}" type="image/x-icon">
+{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Control de TCT</h2>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Crear Nuevo Registro</h5>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'carga_tct:crear_registro' %}" class="btn btn-primary">Crear Registro</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Buscar Registros</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get" action="{% url 'carga_tct:carga_tct' %}">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="q" placeholder="Buscar...">
+                            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Registros de Combustible</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
+                                <th>Patente</th>
+                                <th>Guía</th>
+                                <th>Estación</th>
+                                <th>Suministro</th>
+                                <th>Kilometraje</th>
+                                <th>Consumo</th>
+                                <th>Imagen</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for registro in registros %}
+                            <tr>
+                                <td>{{ registro.id }}</td>
+                                <td>{{ registro.fecha }}</td>
+                                <td>{{ registro.patente }}</td>
+                                <td>{{ registro.guia }}</td>
+                                <td>{{ registro.estacion_servicio }}</td>
+                                <td>{{ registro.suministro }}</td>
+                                <td>{{ registro.kilometraje }}</td>
+                                <td>{{ registro.consumo_litros }} Lt</td>
+                                <td>
+                                    {% if registro.imagen %}
+                                        <a href="{{ registro.imagen.url }}" class="ver-imagen" data-bs-toggle="modal" data-bs-target="#imagenModal" data-imagen-url="{{ registro.imagen.url }}">
+                                            <img src="{{ registro.imagen.url }}" class="img-thumbnail" style="max-width: 50px; height: auto;">
+                                        </a>
+                                    {% else %}
+                                        Sin imagen
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'carga_tct:editar_registro' registro.id %}" class="btn btn-sm btn-warning">Editar</a>
+                                    <a href="{% url 'carga_tct:eliminar_registro' registro.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para ver imagen -->
+<div class="modal fade" id="imagenModal" tabindex="-1" aria-labelledby="imagenModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imagenModalLabel">Imagen del Registro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="" id="imagenModalImg" class="img-fluid" alt="Imagen del Registro">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const verImagenLinks = document.querySelectorAll('.ver-imagen');
+    const imagenModal = document.getElementById('imagenModal');
+    const imagenModalImg = document.getElementById('imagenModalImg');
+
+    verImagenLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const imagenUrl = this.getAttribute('data-imagen-url');
+            imagenModalImg.src = imagenUrl;
+        });
+    });
+});
+</script>
+{% endblock %}

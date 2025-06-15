@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block favicon %}
+    <link rel="icon" href="{% static 'img/fuel-pump-diesel-fill.svg' %}" type="image/x-icon">
+{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Crear Nuevo Registro de Combustible</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_fecha" class="form-label">Fecha</label>
+                                <input type="date" class="form-control" id="id_fecha" name="fecha" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_patente" class="form-label">Patente</label>
+                                <input type="text" class="form-control" id="id_patente" name="patente" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_guia" class="form-label">Guía</label>
+                                <input type="text" class="form-control" id="id_guia" name="guia" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_estacion_servicio" class="form-label">Estación de Servicio</label>
+                                <input type="text" class="form-control" id="id_estacion_servicio" name="estacion_servicio" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_suministro" class="form-label">Suministro</label>
+                                <select class="form-select" id="id_suministro" name="suministro" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="BlueMax">BlueMax</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_kilometraje" class="form-label">Kilometraje</label>
+                                <input type="number" class="form-control" id="id_kilometraje" name="kilometraje" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_consumo_litros" class="form-label">Consumo (Litros)</label>
+                                <input type="number" step="0.01" class="form-control" id="id_consumo_litros" name="consumo_litros" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_imagen" class="form-label">Imagen</label>
+                                <input type="file" class="form-control" id="id_imagen" name="imagen" accept="image/*">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a href="{% url 'carga_tct:carga_tct' %}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Confirmar Eliminación</h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h4>¿Está seguro que desea eliminar este registro?</h4>
+                        <p><strong>ID:</strong> {{ registro.id }}</p>
+                        <p><strong>Fecha:</strong> {{ registro.fecha }}</p>
+                        <p><strong>Patente:</strong> {{ registro.patente }}</p>
+                        <p><strong>Guía:</strong> {{ registro.guia }}</p>
+                        <p><strong>Estación:</strong> {{ registro.estacion_servicio }}</p>
+                        <p><strong>Suministro:</strong> {{ registro.suministro }}</p>
+                        <p><strong>Kilometraje:</strong> {{ registro.kilometraje }}</p>
+                        <p><strong>Consumo:</strong> {{ registro.consumo_litros }} Lt</p>
+                        {% if registro.imagen %}
+                            <p><strong>Imagen:</strong> {{ registro.imagen.name }}</p>
+                        {% endif %}
+                    </div>
+                    <form method="post" class="mt-3">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+                        <a href="{% url 'carga_tct:carga_tct' %}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

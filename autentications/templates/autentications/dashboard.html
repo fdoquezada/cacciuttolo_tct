@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block favicon %}
+    <link rel="icon" href="{% static 'img/speedometer.svg' %}" type="image/x-icon">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Columna de bienvenida -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Bienvenido, {{ user.username }}</h5>
+                    <p class="card-text">Aquí encontrarás un resumen de tus actividades y estadísticas del sistema.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna de estadísticas -->
+        <div class="col-md-8">
+            <div class="row">
+                <!-- Total de registros -->
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total de Registros</h5>
+                            <h2 class="card-text">{{ total_registros }}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registros del día -->
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Registros Hoy</h5>
+                            <h2 class="card-text">{{ registros_hoy }}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registros del mes -->
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Registros del Mes</h5>
+                            <h2 class="card-text">{{ registros_mes }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Actividad Reciente</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="actividadChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script para el gráfico -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('actividadChart').getContext('2d');
+    const actividadChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Hoy', 'Mes'],
+            datasets: [{
+                label: 'Registros',
+                data: [{{ registros_hoy }}, {{ registros_mes }}],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(75, 192, 192, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

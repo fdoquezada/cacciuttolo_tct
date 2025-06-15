@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Carrusel -->
+    <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'img/camion.jpg' %}" class="d-block w-100" alt="Transporte">
+                <div class="carousel-caption">
+                    <h2>Bienvenido a Nuestro Sistema</h2>
+                    <p>Sistema de Gestión de Transporte y Combustible</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/camion.webp' %}" class="d-block w-100" alt="Combustible">
+                <div class="carousel-caption">
+                    <h2>Control de Combustible</h2>
+                    <p>Optimiza el consumo y gastos de combustible</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/camion1.jpg' %}" class="d-block w-100" alt="Flota">
+                <div class="carousel-caption">
+                    <h2>Gestión de Flota</h2>
+                    <p>Administra tu flota de vehículos</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <!-- Sección de Características -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-box text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Control de Flota</h3>
+                    <p>Administra tus vehículos de manera eficiente</p>
+                    <a href="{% url 'carga_tct:carga_tct' %}" class="btn btn-primary">Ver Registros</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-gas-pump"></i>
+                    </div>
+                    <h3>Registro de Combustible</h3>
+                    <p>Registra y controla el consumo de combustible</p>
+                    <a href="{% url 'carga_tct:crear_registro' %}" class="btn btn-primary">Nuevo Registro</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Estadísticas</h3>
+                    <p>Analiza el rendimiento de tu flota</p>
+                    <a href="{% url 'carga_tct:carga_tct' %}" class="btn btn-primary">Ver Estadísticas</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario de Contacto -->
+<!--     <div class="contact-form">
+        <h2>Contacto</h2>
+        <form id="contactForm">
+            <div class="mb-3">
+                <input type="text" name="name" placeholder="Nombre" required>
+            </div>
+            <div class="mb-3">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="mb-3">
+                <textarea name="message" rows="5" placeholder="Mensaje" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+        </form>
+        <div class="social-links text-center">
+            <a href="mailto:contacto@empresa.com" class="btn btn-link">Contactarme</a>
+            <a href="#" class="btn btn-link"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="btn btn-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+</div> -->
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    // Aquí puedes implementar la lógica para enviar el formulario
+    // Por ejemplo, usando fetch o AJAX
+    alert('Gracias por contactarnos!');
+    this.reset();
+});
+</script>
+{% endblock %}
